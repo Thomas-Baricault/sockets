@@ -10,11 +10,11 @@ TARGETS		=	ssl		\
 
 SRC			=	Address		\
 				Client		\
+				Context		\
 				Socket		\
 				tcp/Client	\
 				tls/Client	\
-				udp/Client	\
-				utils
+				udp/Client
 
 
 all: build

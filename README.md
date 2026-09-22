@@ -141,19 +141,18 @@ class Server
 
 int main()
 {
-    tbaricault::sockets::init();
-
-    Server server(tbaricault::sockets::AddressFamily::IPv4);
-
-    if (!server.bind({"127.0.0.1", 7373}))
+    TBARICAULT_SOCKETS_INIT
     {
-        std::cout << "Failed to bind" << std::endl;
-        return (0);
+        Server server(tbaricault::sockets::AddressFamily::IPv4);
+
+        if (!server.bind({"127.0.0.1", 7373}))
+        {
+            std::cout << "Failed to bind" << std::endl;
+            return (0);
+        }
+
+        while (server.run());
     }
-
-    while (server.run());
-
-    tbaricault::sockets::cleanup();
 
     return (0);
 }
@@ -168,25 +167,24 @@ int main()
 
 int main()
 {
-    tbaricault::sockets::init();
-
-    tbaricault::sockets::tcp::Client client(tbaricault::sockets::AddressFamily::IPv4);
-
-    if (!client.connect({"127.0.0.1", 7373}))
+    TBARICAULT_SOCKETS_INIT
     {
-        std::cout << "Failed to connect" << std::endl;
-        return (0);
-    }
+        tbaricault::sockets::tcp::Client client(tbaricault::sockets::AddressFamily::IPv4);
 
-    Sleep(1000);
-    if (!client.send("Hello world!"))
-    {
-        std::cout << "Failed to send" << std::endl;
-        return (0);
-    }
-    Sleep(1000);
+        if (!client.connect({"127.0.0.1", 7373}))
+        {
+            std::cout << "Failed to connect" << std::endl;
+            return (0);
+        }
 
-    tbaricault::sockets::cleanup();
+        Sleep(1000);
+        if (!client.send("Hello world!"))
+        {
+            std::cout << "Failed to send" << std::endl;
+            return (0);
+        }
+        Sleep(1000);
+    }
 
     return (0);
 }
@@ -250,19 +248,18 @@ class Server
 
 int main()
 {
-    tbaricault::sockets::init();
-
-    Server server(tbaricault::sockets::AddressFamily::IPv4);
-
-    if (!server.bind({"127.0.0.1", 7373}))
+    TBARICAULT_SOCKETS_INIT
     {
-        std::cout << "Failed to bind" << std::endl;
-        return (0);
+        Server server(tbaricault::sockets::AddressFamily::IPv4);
+
+        if (!server.bind({"127.0.0.1", 7373}))
+        {
+            std::cout << "Failed to bind" << std::endl;
+            return (0);
+        }
+
+        while (server.run());
     }
-
-    while (server.run());
-
-    tbaricault::sockets::cleanup();
 
     return (0);
 }
@@ -277,17 +274,16 @@ int main()
 
 int main()
 {
-    tbaricault::sockets::init();
-
-    tbaricault::sockets::udp::Client client(tbaricault::sockets::AddressFamily::IPv4);
-
-    if (!client.send({"127.0.0.1", 7373}, "Hello world!"))
+    TBARICAULT_SOCKETS_INIT
     {
-        std::cout << "Failed to send" << std::endl;
-        return (0);
-    }
+        tbaricault::sockets::udp::Client client(tbaricault::sockets::AddressFamily::IPv4);
 
-    tbaricault::sockets::cleanup();
+        if (!client.send({"127.0.0.1", 7373}, "Hello world!"))
+        {
+            std::cout << "Failed to send" << std::endl;
+            return (0);
+        }
+    }
 
     return (0);
 }
@@ -350,25 +346,24 @@ class Server
 
 int main()
 {
-    tbaricault::sockets::init();
-
-    Server server(tbaricault::sockets::AddressFamily::IPv4);
-
-    if (!server.setup("server.crt", "server.key"))
+    TBARICAULT_SOCKETS_INIT
     {
-        std::cout << "Failed to setup TLS" << std::endl;
-        return (0);
+        Server server(tbaricault::sockets::AddressFamily::IPv4);
+
+        if (!server.setup("server.crt", "server.key"))
+        {
+            std::cout << "Failed to setup TLS" << std::endl;
+            return (0);
+        }
+
+        if (!server.bind({"127.0.0.1", 7373}))
+        {
+            std::cout << "Failed to bind" << std::endl;
+            return (0);
+        }
+
+        while (server.run());
     }
-
-    if (!server.bind({"127.0.0.1", 7373}))
-    {
-        std::cout << "Failed to bind" << std::endl;
-        return (0);
-    }
-
-    while (server.run());
-
-    tbaricault::sockets::cleanup();
 
     return (0);
 }
@@ -383,31 +378,30 @@ int main()
 
 int main()
 {
-    tbaricault::sockets::init();
-
-    tbaricault::sockets::tls::Client client(tbaricault::sockets::AddressFamily::IPv4);
-
-    if (!client.setup())
+    TBARICAULT_SOCKETS_INIT
     {
-        std::cout << "Failed to setup TLS" << std::endl;
-        return (0);
-    }
+        tbaricault::sockets::tls::Client client(tbaricault::sockets::AddressFamily::IPv4);
 
-    if (!client.connect({"127.0.0.1", 7373}))
-    {
-        std::cout << "Failed to connect" << std::endl;
-        return (0);
-    }
+        if (!client.setup())
+        {
+            std::cout << "Failed to setup TLS" << std::endl;
+            return (0);
+        }
 
-    Sleep(1000);
-    if (!client.send("Hello world!"))
-    {
-        std::cout << "Failed to send" << std::endl;
-        return (0);
-    }
-    Sleep(1000);
+        if (!client.connect({"127.0.0.1", 7373}))
+        {
+            std::cout << "Failed to connect" << std::endl;
+            return (0);
+        }
 
-    tbaricault::sockets::cleanup();
+        Sleep(1000);
+        if (!client.send("Hello world!"))
+        {
+            std::cout << "Failed to send" << std::endl;
+            return (0);
+        }
+        Sleep(1000);
+    }
 
     return (0);
 }
