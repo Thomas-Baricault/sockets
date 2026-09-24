@@ -8,55 +8,49 @@
 #pragma once
 
 
-/**
- * @brief Creates and test the GLFW context
- */
-#define TBARICAULT_SOCKETS_INIT if (auto _ = tbaricault::sockets::Context(); _)
-
-
 namespace tbaricault::sockets
 {
 
     /**
-     * @brief Sockets context handle
+     * @brief Manages the sockets runtime lifetime
      */
-    class Context
+    class Runtime
     {
 
         public:
 
             /**
-             * @brief Constructs the context
+             * @brief Constructs the runtime
              */
-            Context();
+            Runtime();
 
             /**
              * @brief Copy constructor is disabled
              */
-            Context(const Context&) = delete;
+            Runtime(const Runtime&) = delete;
 
             /**
              * @brief Move constructor is disabled
              */
-            Context(Context&&) = delete;
+            Runtime(Runtime&&) = delete;
 
             /**
-             * @brief Destroys the context
+             * @brief Destructor
              */
-            ~Context() noexcept;
+            ~Runtime() noexcept;
 
             /**
              * @brief Copy assignment is disabled
              */
-            Context& operator=(const Context&) = delete;
+            Runtime& operator=(const Runtime&) = delete;
 
             /**
              * @brief Move assignment is disabled
              */
-            Context& operator=(Context&&) = delete;
+            Runtime& operator=(Runtime&&) = delete;
 
             /**
-             * @brief Returns whether the context was successfully created
+             * @brief Returns whether the runtime was successfully initialized
              */
             explicit operator bool() const noexcept;
 
@@ -64,7 +58,7 @@ namespace tbaricault::sockets
         private:
 
             /**
-             * @brief Returns whether the context is valid
+             * @brief Whether the runtime is valid
              */
             bool _valid = false;
 

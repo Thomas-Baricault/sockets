@@ -141,7 +141,7 @@ class Server
 
 int main()
 {
-    TBARICAULT_SOCKETS_INIT
+    if (tbaricault::sockets::Runtime _{})
     {
         Server server(tbaricault::sockets::AddressFamily::IPv4);
 
@@ -167,7 +167,7 @@ int main()
 
 int main()
 {
-    TBARICAULT_SOCKETS_INIT
+    if (tbaricault::sockets::Runtime _{})
     {
         tbaricault::sockets::tcp::Client client(tbaricault::sockets::AddressFamily::IPv4);
 
@@ -248,7 +248,7 @@ class Server
 
 int main()
 {
-    TBARICAULT_SOCKETS_INIT
+    if (tbaricault::sockets::Runtime _{})
     {
         Server server(tbaricault::sockets::AddressFamily::IPv4);
 
@@ -274,7 +274,7 @@ int main()
 
 int main()
 {
-    TBARICAULT_SOCKETS_INIT
+    if (tbaricault::sockets::Runtime _{})
     {
         tbaricault::sockets::udp::Client client(tbaricault::sockets::AddressFamily::IPv4);
 
@@ -346,7 +346,7 @@ class Server
 
 int main()
 {
-    TBARICAULT_SOCKETS_INIT
+    if (tbaricault::sockets::Runtime _{})
     {
         Server server(tbaricault::sockets::AddressFamily::IPv4);
 
@@ -378,7 +378,7 @@ int main()
 
 int main()
 {
-    TBARICAULT_SOCKETS_INIT
+    if (tbaricault::sockets::Runtime _{})
     {
         tbaricault::sockets::tls::Client client(tbaricault::sockets::AddressFamily::IPv4);
 

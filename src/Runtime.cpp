@@ -11,13 +11,13 @@
 #include <winsock2.h>
 #endif
 
-#include "sockets/Context.hpp"
+#include "sockets/Runtime.hpp"
 
 
 namespace tbaricault::sockets
 {
 
-    Context::Context()
+    Runtime::Runtime()
     {
 #ifdef _WIN32
         WSADATA wsa;
@@ -30,8 +30,10 @@ namespace tbaricault::sockets
         return;
     }
 
-    Context::~Context() noexcept
+    Runtime::~Runtime() noexcept
     {
+        if (!this->_valid)
+            return;
 #ifdef _WIN32
         WSACleanup();
 #endif
@@ -39,7 +41,7 @@ namespace tbaricault::sockets
         return;
     }
 
-    Context::operator bool() const noexcept
+    Runtime::operator bool() const noexcept
     {
         return (this->_valid);
     }
