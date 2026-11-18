@@ -43,7 +43,7 @@ namespace tbaricault::sockets
 
     Runtime::operator bool() const noexcept
     {
-        return (this->_valid);
+        return this->_valid;
     }
 
 }

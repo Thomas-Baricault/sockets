@@ -32,9 +32,9 @@ namespace tbaricault::sockets
     bool Server<T>::bind(const Address& addr) noexcept
     {
         if (this->_addr || ::bind(this->_handle, addr.data(), addr.size()) < 0)
-            return (false);
+            return false;
         this->_addr = addr;
-        return (true);
+        return true;
     }
 
     template<typename T>
@@ -46,9 +46,9 @@ namespace tbaricault::sockets
         int n = poll(this->_fds.data(), this->_fds.size(), timeout);
 #endif
         if (n == 0)
-            return (true);
+            return true;
         if (n < 0)
-            return (false);
+            return false;
         if (this->_fds.at(0).revents && this->_accept())
         {
             Client& client = *this->_clients.back().get();
@@ -56,7 +56,7 @@ namespace tbaricault::sockets
             client.setBlocking(false);
             this->_handleConnect(client);
         }
-        return (true);
+        return true;
     }
 
     template<typename T>

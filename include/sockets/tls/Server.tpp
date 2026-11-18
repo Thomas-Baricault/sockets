@@ -36,7 +36,7 @@ namespace tbaricault::sockets::tls
     bool Server<T>::run(int timeout)
     {
         if (!tbaricault::sockets::Server<T>::run(timeout))
-            return (false);
+            return false;
         for (std::size_t i = 0; i < this->_clients.size();)
         {
             pollfd fd = this->_fds.at(i + 1);
@@ -61,16 +61,16 @@ namespace tbaricault::sockets::tls
             }
             i++;
         }
-        return (true);
+        return true;
     }
 
     template<typename T>
     bool Server<T>::_accept()
     {
         if (!tbaricault::sockets::tcp::Server<T>::_accept())
-            return (false);
+            return false;
         this->_clients.back().get()->setup(this->_ctx);
-        return (true);
+        return true;
     }
 
 }

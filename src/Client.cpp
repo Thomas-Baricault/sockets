@@ -22,14 +22,19 @@ namespace tbaricault::sockets
     bool Client::connect(const Address& addr)
     {
         if (this->_addr || ::connect(this->_handle, addr.data(), addr.size()) < 0)
-            return (false);
+            return false;
         this->_addr = addr;
-        return (true);
+        return true;
     }
 
     bool Client::send(const std::string& message) const noexcept
     {
-        return (::send(this->_handle, message.c_str(), message.size(), 0) >= 0);
+        return ::send(
+            this->_handle,
+            message.c_str(),
+            message.size(),
+            0
+        ) >= 0;
     }
 
     bool Client::receive(std::string& message) const
@@ -43,11 +48,11 @@ namespace tbaricault::sockets
 #else
             if (bytes == 0 || (errno != EAGAIN && errno != EWOULDBLOCK))
 #endif
-                return (false);
+                return false;
             bytes = 0;
         }
         message.resize(bytes);
-        return (true);
+        return true;
     }
 
 }

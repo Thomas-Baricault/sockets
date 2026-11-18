@@ -48,13 +48,13 @@ namespace tbaricault::sockets::udp
     bool Server<T>::run(int timeout)
     {
         if (!tbaricault::sockets::Server<T>::run(timeout))
-            return (false);
+            return false;
         if (!this->_message.empty())
         {
             this->_handleMessage(*this->_clients.back().get(), this->_message);
             this->_message.clear();
         }
-        return (true);
+        return true;
     }
 
     template<typename T>
@@ -62,18 +62,18 @@ namespace tbaricault::sockets::udp
     {
         Address addr;
         if (!this->_interface.receive(addr, this->_message))
-            return (false);
+            return false;
         for (auto& client : this->_clients)
         {
             if (client->getAddr() == addr)
             {
                 this->_handleMessage(*client.get(), this->_message);
                 this->_message.clear();
-                return (false);
+                return false;
             }
         }
         this->_clients.push_back(std::make_unique<T>(this->_handle, addr));
-        return (true);
+        return true;
     }
 
 }

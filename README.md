@@ -1,8 +1,8 @@
 # tbaricault::sockets
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-![C++23](https://img.shields.io/badge/C%2B%2B-23-blue)
-![CMake](https://img.shields.io/badge/CMake-3.20%2B-blue)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
+![C++23](https://img.shields.io/badge/C%2B%2B-23-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
+![CMake](https://img.shields.io/badge/CMake-3.20%2B-064F8C?style=for-the-badge&logo=cmake&logoColor=white)
 
 ## Description
 
@@ -26,6 +26,7 @@ Basic UDP server never disconnect clients because UDP work without persistant co
     - [Simple TCP server/client](#simple-tcp-serverclient)
     - [Simple UDP server/client](#simple-udp-serverclient)
     - [Simple TLS server/client](#simple-tls-serverclient)
+- [Roadmap](#roadmap)
 - [License](#license)
 
 ## Features
@@ -148,13 +149,13 @@ int main()
         if (!server.bind({"127.0.0.1", 7373}))
         {
             std::cout << "Failed to bind" << std::endl;
-            return (0);
+            return 0;
         }
 
         while (server.run());
     }
 
-    return (0);
+    return 0;
 }
 ```
 
@@ -174,19 +175,19 @@ int main()
         if (!client.connect({"127.0.0.1", 7373}))
         {
             std::cout << "Failed to connect" << std::endl;
-            return (0);
+            return 0;
         }
 
         Sleep(1000);
         if (!client.send("Hello world!"))
         {
             std::cout << "Failed to send" << std::endl;
-            return (0);
+            return 0;
         }
         Sleep(1000);
     }
 
-    return (0);
+    return 0;
 }
 ```
 
@@ -255,13 +256,13 @@ int main()
         if (!server.bind({"127.0.0.1", 7373}))
         {
             std::cout << "Failed to bind" << std::endl;
-            return (0);
+            return 0;
         }
 
         while (server.run());
     }
 
-    return (0);
+    return 0;
 }
 ```
 
@@ -281,11 +282,11 @@ int main()
         if (!client.send({"127.0.0.1", 7373}, "Hello world!"))
         {
             std::cout << "Failed to send" << std::endl;
-            return (0);
+            return 0;
         }
     }
 
-    return (0);
+    return 0;
 }
 ```
 
@@ -353,19 +354,19 @@ int main()
         if (!server.setup("server.crt", "server.key"))
         {
             std::cout << "Failed to setup TLS" << std::endl;
-            return (0);
+            return 0;
         }
 
         if (!server.bind({"127.0.0.1", 7373}))
         {
             std::cout << "Failed to bind" << std::endl;
-            return (0);
+            return 0;
         }
 
         while (server.run());
     }
 
-    return (0);
+    return 0;
 }
 ```
 
@@ -385,25 +386,25 @@ int main()
         if (!client.setup())
         {
             std::cout << "Failed to setup TLS" << std::endl;
-            return (0);
+            return 0;
         }
 
         if (!client.connect({"127.0.0.1", 7373}))
         {
             std::cout << "Failed to connect" << std::endl;
-            return (0);
+            return 0;
         }
 
         Sleep(1000);
         if (!client.send("Hello world!"))
         {
             std::cout << "Failed to send" << std::endl;
-            return (0);
+            return 0;
         }
         Sleep(1000);
     }
 
-    return (0);
+    return 0;
 }
 ```
 

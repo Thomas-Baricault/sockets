@@ -40,23 +40,23 @@ namespace tbaricault::sockets
     Socket& Socket::operator=(Socket&& other) noexcept
     {
         if (&other == this)
-            return (*this);
+            return *this;
         this->_handle = other._handle;
         this->_addr = other._addr;
         this->_bufferSize = other._bufferSize;
         other._handle = Invalid;
         other._addr = {};
-        return (*this);
+        return *this;
     }
 
     Socket::operator bool() const noexcept
     {
-        return (this->_handle != Invalid);
+        return this->_handle != Invalid;
     }
 
     const Address& Socket::getAddr() const noexcept
     {
-        return (this->_addr);
+        return this->_addr;
     }
 
     void Socket::setBufferSize(std::size_t value) noexcept

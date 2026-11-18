@@ -38,7 +38,7 @@ namespace tbaricault::sockets
             ptr = ptr->ai_next;
         }
         freeaddrinfo(res);
-        return (addrs);
+        return addrs;
     }
 
     Address::Address(const sockaddr_storage& storage)
@@ -80,7 +80,7 @@ namespace tbaricault::sockets
     bool Address::operator==(const Address& other) const noexcept
     {
         if (this->getFamily() != other.getFamily())
-            return (false);
+            return false;
         switch (this->getFamily())
         {
             case AddressFamily::IPv4:
@@ -104,23 +104,23 @@ namespace tbaricault::sockets
                 );
             }
             default:
-                return (true);
+                return true;
         }
     }
 
     Address::operator bool() const noexcept
     {
-        return (this->getFamily() != AddressFamily::Auto);
+        return this->getFamily() != AddressFamily::Auto;
     }
 
     const std::string& Address::getHost() const noexcept
     {
-        return (this->_host);
+        return this->_host;
     }
 
     AddressFamily Address::getFamily() const noexcept
     {
-        return (static_cast<AddressFamily>(this->_storage.ss_family));
+        return static_cast<AddressFamily>(this->_storage.ss_family);
     }
 
     std::string Address::getIP() const
@@ -131,18 +131,18 @@ namespace tbaricault::sockets
             {
                 char buffer[INET_ADDRSTRLEN];
                 if (inet_ntop(AF_INET, &reinterpret_cast<const sockaddr_in*>(&this->_storage)->sin_addr, buffer, INET_ADDRSTRLEN))
-                    return (buffer);
-                return ("");
+                    return buffer;
+                return "";
             }
             case AddressFamily::IPv6:
             {
                 char buffer[INET6_ADDRSTRLEN];
                 if (inet_ntop(AF_INET6, &reinterpret_cast<const sockaddr_in6*>(&this->_storage)->sin6_addr, buffer, INET6_ADDRSTRLEN))
-                    return (buffer);
-                return ("");
+                    return buffer;
+                return "";
             }
             default:
-                return ("");
+                return "";
         }
     }
 
@@ -151,17 +151,17 @@ namespace tbaricault::sockets
         switch (this->getFamily())
         {
             case AddressFamily::IPv4:
-                return (ntohs(reinterpret_cast<const sockaddr_in*>(&this->_storage)->sin_port));
+                return ntohs(reinterpret_cast<const sockaddr_in*>(&this->_storage)->sin_port);
             case AddressFamily::IPv6:
-                return (ntohs(reinterpret_cast<const sockaddr_in6*>(&this->_storage)->sin6_port));
+                return ntohs(reinterpret_cast<const sockaddr_in6*>(&this->_storage)->sin6_port);
             default:
-                return (0);
+                return 0;
         }
     }
 
     const sockaddr* Address::data() const noexcept
     {
-        return (reinterpret_cast<const sockaddr*>(&this->_storage));
+        return reinterpret_cast<const sockaddr*>(&this->_storage);
     }
 
     socklen_t Address::size() const noexcept
@@ -169,11 +169,11 @@ namespace tbaricault::sockets
         switch (this->getFamily())
         {
             case AddressFamily::IPv4:
-                return (sizeof(sockaddr_in));
+                return sizeof(sockaddr_in);
             case AddressFamily::IPv6:
-                return (sizeof(sockaddr_in6));
+                return sizeof(sockaddr_in6);
             default:
-                return (sizeof(sockaddr_storage));
+                return sizeof(sockaddr_storage);
         }
     }
 

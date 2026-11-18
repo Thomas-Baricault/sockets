@@ -24,20 +24,27 @@ namespace tbaricault::sockets::udp
     bool Client::connect(const Address& addr)
     {
         this->_addr = {};
-        return (tbaricault::sockets::Client::connect(addr));
+        return tbaricault::sockets::Client::connect(addr);
     }
 
     bool Client::send(const Address& addr, const std::string& message) const noexcept
     {
         if (!addr || (this->_addr && addr != this->_addr))
-            return (false);
-        return (::sendto(this->_handle, message.c_str(), message.size(), 0, addr.data(), addr.size()) >= 0);
+            return false;
+        return ::sendto(
+            this->_handle,
+            message.c_str(),
+            message.size(),
+            0,
+            addr.data(),
+            addr.size()
+        ) >= 0;
     }
 
     bool Client::receive(Address& addr, std::string& message) const
     {
         if (this->_addr && addr != this->_addr)
-            return (false);
+            return false;
         message.resize(this->_bufferSize);
         sockaddr_storage storage;
         socklen_t len = sizeof(storage);
@@ -49,11 +56,11 @@ namespace tbaricault::sockets::udp
 #else
             if (bytes == 0 || (errno != EAGAIN && errno != EWOULDBLOCK))
 #endif
-                return (false);
+                return false;
         }
         message.resize(bytes);
         addr = Address(storage);
-        return (true);
+        return true;
     }
 
 }

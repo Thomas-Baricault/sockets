@@ -45,23 +45,26 @@ namespace tbaricault::sockets::tcp
         socklen_t len = sizeof(storage);
         Handle handle = ::accept(this->_handle, (sockaddr*)&storage, &len);
         if (handle == Invalid)
-            return (false);
+            return false;
         this->_fds.push_back({handle, POLLIN, 0});
         this->_clients.push_back(std::make_unique<T>(T{handle, storage}));
-        return (true);
+        return true;
     }
 
     template<typename T>
     bool Server<T>::bind(const Address& addr) noexcept
     {
-        return (tbaricault::sockets::Server<T>::bind(addr) && ::listen(this->_handle, 5) >= 0);
+        return (
+            tbaricault::sockets::Server<T>::bind(addr) &&
+            ::listen(this->_handle, 5) >= 0
+        );
     }
 
     template<typename T>
     bool Server<T>::run(int timeout)
     {
         if (!tbaricault::sockets::Server<T>::run(timeout))
-            return (false);
+            return false;
         for (std::size_t i = 0; i < this->_clients.size();)
         {
             pollfd fd = this->_fds.at(i + 1);
@@ -78,7 +81,7 @@ namespace tbaricault::sockets::tcp
             }
             i++;
         }
-        return (true);
+        return true;
     }
 
     template<typename T>
